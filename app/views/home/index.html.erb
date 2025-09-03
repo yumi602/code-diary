@@ -1,1 +1,21 @@
-<h1>Hello World from Fly.io!</h1>
+<div class="text-center p-6">
+  <h1 class="text-2xl font-bold mb-4">おさんぽ日記アプリへようこそ</h1>
+  <p class="mb-6">
+    毎日の散歩を気軽に記録できるアプリです。<br>
+    写真や気分スタンプをつけて、自分だけの散歩日記を楽しめます。
+  </p>
+
+  <% if user_signed_in? %>
+    <p class="mb-4">こんにちは、<%= current_user.email %> さん</p>
+    <div class="flex flex-col gap-2 items-center">
+      <%= link_to "マイページへ", walks_path, class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "bg-gray-500 text-white px-4 py-2 rounded" %>
+    </div>
+  <% else %>
+    <div class="flex flex-col gap-2 items-center">
+      <%= link_to "新規登録", new_user_registration_path, class: "bg-green-500 text-white px-4 py-2 rounded" %>
+      <%= link_to "ログイン", new_user_session_path, class: "bg-gray-700 text-white px-4 py-2 rounded" %>
+    </div>
+  <% end %>
+</div>
+
