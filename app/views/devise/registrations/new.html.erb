@@ -1,0 +1,37 @@
+<div class="max-w-md mx-auto bg-white shadow-md rounded p-6">
+  <h2 class="text-xl font-bold mb-4 text-center">新規登録</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div>
+      <%= f.label :email, "メールアドレス", class: "block text-sm font-medium mb-1" %>
+      <%= f.email_field :email, autofocus: true, class: "w-full border rounded px-3 py-2" %>
+    </div>
+
+    <div>
+      <%= f.label :password, "パスワード", class: "block text-sm font-medium mb-1" %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "w-full border rounded px-3 py-2" %>
+      <p class="text-xs text-gray-500 mt-1">6文字以上で入力してください</p>
+    </div>
+
+    <div>
+      <%= f.label :password_confirmation, "パスワード（確認用）", class: "block text-sm font-medium mb-1" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full border rounded px-3 py-2" %>
+    </div>
+
+    <div>
+      <%= f.submit "登録する", class: "w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600" %>
+    </div>
+
+    <div class="mt-4">
+      <%= link_to "トップに戻る", root_path,
+      class: "w-full inline-block text-center bg-gray-500 text-white py-2 rounded hover:bg-gray-600" %>
+    </div>
+
+  <% end %>
+
+  <div class="mt-4 text-center">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
