@@ -1,12 +1,23 @@
 version: 2
 updates:
-- package-ecosystem: bundler
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-- package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+  # Bundler (Ruby gems)
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly" # 毎週でOK。頻度はdailyでも可
+    open-pull-requests-limit: 10
+    allow:
+      - dependency-type: "direct" # 直接インストールしたgemのみ
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-minor", "version-update:semver-major"]
+    # ↑ セマンティックバージョンで "minor" "major" は無視し、セキュリティfixを含む patch だけ対象
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    # Actions はセキュリティアラート付きだけPRする設定はできないので、
+    # 頻度を weekly/monthly にして負担を減らすのがおすすめ
