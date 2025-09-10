@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  body: MyText
+  mood: 1
+  walked_on: 2025-09-10
+
+two:
+  user: two
+  body: MyText
+  mood: 1
+  walked_on: 2025-09-10
