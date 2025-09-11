@@ -8,7 +8,7 @@
   <% if user_signed_in? %>
     <p class="mb-4">こんにちは、<%= current_user.email %> さん</p>
     <div class="flex flex-col gap-2 items-center">
-      <%= link_to "マイページへ", walks_path, class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+      <%= link_to "マイページへ", mypage_path, class: "bg-blue-500 text-white px-4 py-2 rounded" %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "bg-gray-500 text-white px-4 py-2 rounded" %>
     </div>
   <% else %>
