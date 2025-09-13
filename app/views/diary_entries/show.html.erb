@@ -2,4 +2,9 @@
 <h1><%= @entry.walked_on %> の日記</h1>
 <p>気分: <%= @entry.mood %></p>
 <p><%= @entry.body %></p>
+
+<% if @entry.photo.attached? %>
+    <%= image_tag @entry.photo, style: "max-width: 300px;" %>
+<% end %>
+
 <%= link_to "一覧に戻る", diary_entries_path %>

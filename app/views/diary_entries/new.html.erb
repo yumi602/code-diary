@@ -17,6 +17,11 @@
   </div>
 
   <div>
+  <%= f.label :photo, "写真" %>
+  <%= f.file_field :photo %>
+</div>
+
+  <div>
     <%= f.submit "投稿する" %>
   </div>
 <% end %>

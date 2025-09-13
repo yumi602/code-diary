@@ -1,5 +1,6 @@
 class DiaryEntry < ApplicationRecord
   belongs_to :user
+  has_one_attached :photo
 
   enum mood: {
     good: 0,

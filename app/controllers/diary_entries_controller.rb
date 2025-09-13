@@ -26,5 +26,5 @@ end
 private
 
 def entry_params
-  params.require(:diary_entries).permit(:body, :mood, :walked_on)
+  params.require(:diary_entry).permit(:body, :mood, :walked_on, :photo)
 end
