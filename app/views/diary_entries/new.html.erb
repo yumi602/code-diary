@@ -1,0 +1,22 @@
+<h1>新しい日記を作成</h1>
+
+<%= form_with model: @entry, local: true do |f| %>
+  <div>
+    <%= f.label :walked_on, "日付" %>
+    <%= f.date_field :walked_on %>
+  </div>
+
+  <div>
+    <%= f.label :mood, "気分" %>
+    <%= f.select :mood, DiaryEntry.moods.keys.map { |k| [k, k] }, include_blank: "選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :body, "本文" %>
+    <%= f.text_area :body %>
+  </div>
+
+  <div>
+    <%= f.submit "投稿する" %>
+  </div>
+<% end %>

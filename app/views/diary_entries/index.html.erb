@@ -1,5 +1,10 @@
 <!-- app/views/diary_entries/index.html.erb -->
 <h1>日記一覧</h1>
+
+<div style="margin-bottom: 1rem; margin-top: 2rem;">
+  <%= link_to "新しい日記を書く", new_diary_entry_path, class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+</div>
+
 <ul>
   <% @entries.each do |entry| %>
     <li>
