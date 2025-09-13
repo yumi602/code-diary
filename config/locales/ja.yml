@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      diary_entry: 日記
+    attributes:
+      diary_entry:
+        walked_on: 日付
+        body: 本文
+  errors:
+    messages:
+      blank: "を入力してください"

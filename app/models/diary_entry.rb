@@ -9,4 +9,8 @@ class DiaryEntry < ApplicationRecord
     excited: 3,
     tired: 4
   }
+
+  # バリデーション
+  validates :walked_on, presence: true
+  validates :body, presence: true
 end

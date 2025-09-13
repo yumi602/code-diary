@@ -1,5 +1,15 @@
 <h1>新しい日記を作成</h1>
 
+<% if @entry.errors.any? %>
+  <div style="color:#b00020; margin-bottom: 12px;">
+    <ul>
+      <% @entry.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: @entry, local: true do |f| %>
   <div>
     <%= f.label :walked_on, "日付" %>
