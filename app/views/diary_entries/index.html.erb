@@ -1,16 +1,62 @@
-<!-- app/views/diary_entries/index.html.erb -->
-<h1>日記一覧</h1>
+<%# 画面の横幅をスマホ基準にしつつ、中央寄せ & 余白 %>
+<div class="max-w-md md:max-w-2xl mx-auto p-4">
 
-<div style="margin-bottom: 1rem; margin-top: 2rem;">
-  <%= link_to "新しい日記を書く", new_diary_entry_path, class: "bg-blue-500 text-white px-4 py-2 rounded" %>
-</div>
+  <%# タイトルと「新しい日記」ボタン。スマホでは縦積み、md以上で横並び %>
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+    <h1 class="text-xl font-bold">日記一覧</h1>
 
-<ul>
-  <% @entries.each do |entry| %>
-    <li>
-      <%= link_to entry.walked_on, diary_entry_path(entry) %>
-      （<%= entry.mood || "気分なし" %>）
-      - <%= truncate(entry.body, length: 30) %>
-    </li>
+    <%# 幅いっぱいで押しやすいボタン。md以上は自然な幅に %>
+    <%= link_to "新しい日記を書く", new_diary_entry_path,
+      class: "w-full md:w-auto text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 active:bg-blue-800 transition" %>
+  </div>
+
+  <%# データが無いときの「空状態」カード %>
+  <% if @entries.blank? %>
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+      <div class="text-4xl mb-2">📭</div>
+      <p class="text-gray-600">まだ日記がありません。今日の散歩を記録しましょう！</p>
+      <div class="mt-4">
+        <%= link_to "最初の日記を書く", new_diary_entry_path,
+          class: "inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+      </div>
+    </div>
   <% end %>
-</ul>
+
+  <%# エントリーのカード一覧 %>
+  <div class="space-y-3">
+    <% @entries.each do |e| %>
+      <%# カード全体をクリック可能に。ホバーで影を強めてUX向上 %>
+      <%= link_to diary_entry_path(e), class: "block" do %>
+        <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md transition flex gap-4">
+          <%# サムネイル（画像があれば表示）。object-cover でトリミングして見栄え良く %>
+          <% if e.photo.attached? %>
+            <%# 画像処理gemがあればvariant推奨。無ければ e.photo のままでもOK %>
+            <%= image_tag e.photo, class: "w-20 h-20 rounded-lg object-cover flex-shrink-0", alt: "日記の写真" %>
+
+          <% else %>
+            <%# 画像が無い場合のプレースホルダ %>
+            <div class="w-20 h-20 rounded-lg bg-gray-100 grid place-items-center text-gray-400 text-sm flex-shrink-0">
+              なし
+            </div>
+          <% end %>
+
+          <%# テキスト領域（伸縮） %>
+          <div class="min-w-0 flex-1">
+            <%# 上段：日付 + 気分バッジ %>
+            <div class="flex items-center gap-2">
+              <%# 日付は日本語化していなければ strftime で明示表示 %>
+              <p class="text-sm text-gray-600"><%= e.walked_on&.strftime("%Y/%m/%d") %></p>
+              <span class="<%= mood_badge_class(e.mood) %>"><%= mood_label(e.mood) %></span>
+            </div>
+
+            <%# 本文の冒頭。truncate で2行分くらいに省略（任意） %>
+            <p class="mt-1 text-gray-900 line-clamp-2"><%= truncate(e.body, length: 60) %></p>
+          </div>
+
+          <%# 矢印（視覚的な「進む」） %>
+          <div class="self-center text-gray-300 group-hover:text-gray-400">›</div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

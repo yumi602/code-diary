@@ -2,8 +2,11 @@ class DiaryEntriesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @entries = current_user.diary_entries.order(walked_on: :desc)
-  end
+  @entries = current_user.diary_entries
+              .includes(photo_attachment: :blob) # 画像のN+1クエリ回避
+              .order(walked_on: :desc, created_at: :desc)
+end
+
 
   def new
     @entry = current_user.diary_entries.new
