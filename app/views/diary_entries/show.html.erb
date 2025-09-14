@@ -10,23 +10,39 @@
       <span class="<%= mood_badge_class(@entry.mood) %>"><%= mood_label(@entry.mood) %></span>
     </div>
 
-    <%= image_tag(
-      @entry.photo.variant(resize_to_limit: [600, 400]),
-      class: "w-full max-w-md rounded-lg object-contain mx-auto",
-      alt: "日記の写真"
-    ) %>
+    <%# 写真（あれば表示） %>
+    <% if @entry.photo.attached? %>
+      <%= image_tag(
+        @entry.photo.variant(resize_to_limit: [600, 400]),
+        class: "w-full max-w-md rounded-lg object-contain mx-auto",
+        alt: "日記の写真"
+      ) %>
+    <% else %>
+    <div class="w-full max-w-md h-64 rounded-lg bg-gray-100 grid place-items-center text-gray-400 mx-auto">
+      <span class="text-sm">画像なし</span>
+    </div>
+    <% end %>
 
-
-
-
-
-    <%# 本文 %>
-    <p class="text-gray-900 whitespace-pre-line"><%= @entry.body %></p>
+      <!-- 本文 -->
+    <div class="mt-4 text-gray-700 whitespace-pre-line">
+      <%= @entry.body %>
+    </div>
   </div>
 
-  <%# 戻るボタン %>
-  <div class="mt-6">
+  <div class="flex justify-between mt-6">
+    <!-- 左側: 一覧に戻る -->
     <%= link_to "一覧に戻る", diary_entries_path,
       class: "inline-block bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300" %>
+
+    <!-- 右側: 編集 & 削除 -->
+    <div class="flex space-x-2">
+    <%= link_to "編集する",
+          edit_diary_entry_path(@entry),
+          class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" %>
+
+    <%= link_to "削除する",
+      diary_entry_path(@entry),
+      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+      class: "px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition" %>
   </div>
 </div>

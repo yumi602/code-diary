@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root "home#index" # ログイン前トップページ
   get "mypage", to: "diary_entries#index", as: :mypage
 
-  resources :diary_entries, only: [ :index, :show, :new, :create ]
+  resources :diary_entries
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
