@@ -1,10 +1,32 @@
-<!-- app/views/diary_entries/show.html.erb -->
-<h1><%= @entry.walked_on %> の日記</h1>
-<p>気分: <%= @entry.mood %></p>
-<p><%= @entry.body %></p>
+<div class="max-w-md md:max-w-2xl mx-auto p-4">
+  <%# タイトル %>
+  <h1 class="text-xl font-bold mb-4">日記の詳細</h1>
 
-<% if @entry.photo.attached? %>
-    <%= image_tag @entry.photo, style: "max-width: 300px;" %>
-<% end %>
+  <%# 投稿のカード %>
+  <div class="rounded-2xl border border-gray-200 bg-white shadow-sm p-4 space-y-4">
+    <%# 日付 + 気分バッジ %>
+    <div class="flex items-center gap-2">
+      <p class="text-sm text-gray-600"><%= @entry.walked_on&.strftime("%Y/%m/%d") %></p>
+      <span class="<%= mood_badge_class(@entry.mood) %>"><%= mood_label(@entry.mood) %></span>
+    </div>
 
-<%= link_to "一覧に戻る", diary_entries_path %>
+    <%= image_tag(
+      @entry.photo.variant(resize_to_limit: [600, 400]),
+      class: "w-full max-w-md rounded-lg object-contain mx-auto",
+      alt: "日記の写真"
+    ) %>
+
+
+
+
+
+    <%# 本文 %>
+    <p class="text-gray-900 whitespace-pre-line"><%= @entry.body %></p>
+  </div>
+
+  <%# 戻るボタン %>
+  <div class="mt-6">
+    <%= link_to "一覧に戻る", diary_entries_path,
+      class: "inline-block bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300" %>
+  </div>
+</div>

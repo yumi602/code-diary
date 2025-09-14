@@ -1,19 +1,26 @@
 FROM ruby:3.3.7
 WORKDIR /app
 
-# 基本パッケージ
-RUN apt-get update -qq && apt-get install -y curl gnupg postgresql-client
+# 基本パッケージ + ImageMagick をまとめてインストール
+RUN apt-get update -qq && apt-get install -y \
+  curl \
+  gnupg \
+  postgresql-client \
+  imagemagick \
+  && rm -rf /var/lib/apt/lists/*
 
-# Node.js + Yarn を直接インストール
+# Node.js + Yarn をインストール
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
   && apt-get update -qq \
   && apt-get install -y nodejs \
-  && npm install -g yarn
+  && npm install -g yarn \
+  && rm -rf /var/lib/apt/lists/*
 
-
-# Gemfile が無いので、ここはコメントアウト
+# Gemfile 周りを先にコピーして bundle install（キャッシュ効率のため）
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+# アプリ全体をコピー
 COPY . .
+
 CMD ["bash"]
