@@ -1,0 +1,10 @@
+<h1>パズル一覧</h1>
+
+<ul>
+  <% @puzzles.each do |puzzle| %>
+    <li>
+      <%= link_to puzzle.title, puzzle_path(puzzle) %>
+      （<%= puzzle.puzzle_pieces.where(filled: true).count %> / 7 ピース埋まり）
+    </li>
+  <% end %>
+</ul>

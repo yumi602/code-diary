@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_13_011951) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_15_122327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,28 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_13_011951) do
     t.index ["user_id"], name: "index_diary_entries_on_user_id"
   end
 
+  create_table "puzzle_pieces", force: :cascade do |t|
+    t.bigint "puzzle_id", null: false
+    t.integer "position"
+    t.string "image"
+    t.boolean "filled", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["puzzle_id", "position"], name: "index_pieces_on_puzzle_and_position", unique: true
+    t.index ["puzzle_id"], name: "index_puzzle_pieces_on_puzzle_id"
+  end
+
+  create_table "puzzles", force: :cascade do |t|
+    t.string "title"
+    t.string "image"
+    t.string "status"
+    t.bigint "user_id", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_puzzles_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -67,4 +89,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_13_011951) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "diary_entries", "users"
+  add_foreign_key "puzzle_pieces", "puzzles"
+  add_foreign_key "puzzles", "users"
 end

@@ -1,0 +1,15 @@
+<h1><%= @puzzle.title %></h1>
+<p>状態: <%= @puzzle.status %></p>
+<p>完成日: <%= @puzzle.completed_at || "未完成" %></p>
+
+<div style="display: grid; grid-template-columns: repeat(4, 100px); gap: 4px;">
+  <% @puzzle.puzzle_pieces.each do |piece| %>
+    <div style="width:100px; height:100px; border:1px solid #ccc; text-align:center; line-height:100px;">
+      <% if piece.filled? %>
+        ✅
+      <% else %>
+        ❌
+      <% end %>
+    </div>
+  <% end %>
+</div>

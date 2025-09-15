@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  puzzle: one
+  position: 1
+  image: MyString
+  filled: false
+
+two:
+  puzzle: two
+  position: 1
+  image: MyString
+  filled: false
