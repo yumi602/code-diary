@@ -3,10 +3,10 @@
   <h1 class="text-xl font-bold mb-4">日記の詳細</h1>
 
   <%# 投稿のカード %>
-  <div class="rounded-2xl border border-gray-200 bg-white shadow-sm p-4 space-y-4">
+  <div class="card bg-base-100 shadow-xl p-4 space-y-4">
     <%# 日付 + 気分バッジ %>
     <div class="flex items-center gap-2">
-      <p class="text-sm text-gray-600"><%= @entry.walked_on&.strftime("%Y/%m/%d") %></p>
+      <p class="text-sm font-semibold"><%= @entry.walked_on&.strftime("%Y/%m/%d") %></p>
       <span class="<%= mood_badge_class(@entry.mood) %>"><%= mood_label(@entry.mood) %></span>
     </div>
 
@@ -18,31 +18,30 @@
         alt: "日記の写真"
       ) %>
     <% else %>
-    <div class="w-full max-w-md h-64 rounded-lg bg-gray-100 grid place-items-center text-gray-400 mx-auto">
-      <span class="text-sm">画像なし</span>
-    </div>
+      <div class="w-full max-w-md h-64 rounded-lg bg-gray-100 grid place-items-center text-gray-400 mx-auto">
+        <span class="text-sm">画像なし</span>
+      </div>
     <% end %>
 
-      <!-- 本文 -->
+    <%# 本文 %>
     <div class="mt-4 text-gray-700 whitespace-pre-line">
       <%= @entry.body %>
     </div>
   </div>
 
+  <%# --- ボタンはカードの外 --- %>
   <div class="flex justify-between mt-6">
-    <!-- 左側: 一覧に戻る -->
-    <%= link_to "一覧に戻る", diary_entries_path,
-      class: "inline-block bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300" %>
+    <%= link_to "一覧に戻る", diary_entries_path, class: "btn btn-outline" %>
 
-    <!-- 右側: 編集 & 削除 -->
     <div class="flex space-x-2">
-    <%= link_to "編集する",
-          edit_diary_entry_path(@entry),
-          class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" %>
+      <%= link_to "編集する",
+            edit_diary_entry_path(@entry),
+            class: "btn btn-primary" %>
 
-    <%= link_to "削除する",
-      diary_entry_path(@entry),
-      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
-      class: "px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition" %>
+      <%= link_to "削除する",
+            diary_entry_path(@entry),
+            data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+            class: "btn btn-error" %>
+    </div>
   </div>
 </div>

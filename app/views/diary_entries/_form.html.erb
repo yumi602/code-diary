@@ -1,32 +1,35 @@
 <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
   <%= form_with model: @entry, local: true, class: "space-y-4" do |f| %>
-
+    <!-- 日付 -->
     <div>
-      <%= f.label :walked_on, "日付", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.date_field :walked_on, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+      <%= f.label :walked_on, "日付", class: "block mb-1 font-medium"%>
+      <%= f.date_field :walked_on, class: "input input-bordered w-full"%>
     </div>
 
+    <!-- 気分 -->
     <div>
-      <%= f.label :mood, "気分", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :mood, "気分", class: "block mb-1 font-medium"%>
       <%= f.select :mood, DiaryEntry.moods.keys.map { |m| [m, m] },
-            {}, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+            {}, class: "select select-bordered w-full"%>
     </div>
 
+    <!-- 本文 -->
     <div>
-      <%= f.label :body, "本文", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :body, "本文", class: "block mb-1 font-medium" %>
       <%= f.text_area :body, rows: 4,
-            class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+            class: "textarea textarea-bordered w-full" %>
     </div>
 
+    <!-- 写真 -->
     <div>
-      <%= f.label :photo, "写真", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.file_field :photo, class: "mt-1 block w-full text-sm text-gray-500" %>
+      <%= f.label :photo, "写真",class: "block mb-1 font-medium" %>
+      <%= f.file_field :photo, class: "file-input file-input-bordered w-full" %>
     </div>
 
+    <!-- 送信ボタン -->
     <div>
       <%= f.submit ( @entry.new_record? ? "投稿する" : "更新する" ),
-            class: "w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" %>
+            class: "btn btn-primary w-full"%>
     </div>
-
   <% end %>
 </div>
