@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :diary_entries
 
-  resources :puzzles, only: [:index, :show]
+  resources :puzzles, only: [ :index, :show ]
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
