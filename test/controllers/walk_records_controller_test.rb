@@ -1,18 +1,22 @@
 require "test_helper"
 
 class WalkRecordsControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
-    get walk_records_new_url
-    assert_response :success
+  include Devise::Test::IntegrationHelpers
+
+  setup do
+    @user = users(:one)
+    sign_in @user
   end
 
-  test "should get create" do
-    get walk_records_create_url
-    assert_response :success
-  end
-
-  test "should get index" do
-    get walk_records_index_url
-    assert_response :success
+  test "should create" do
+    assert_difference("WalkRecord.count") do
+      post walk_records_url, params: {
+        walk_record: {
+          date: Date.today,
+          note: "テストメモ"
+        }
+      }
+    end
+    assert_response :redirect
   end
 end
