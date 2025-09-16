@@ -33,6 +33,10 @@ class Puzzle < ApplicationRecord
     puzzle_pieces.where(filled: true, updated_at: range).exists?
   end
 
+  def completed?
+    status == "completed"
+  end
+
   private
 
   def generate_pieces
