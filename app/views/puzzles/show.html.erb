@@ -1,15 +1,25 @@
-<h1><%= @puzzle.title %></h1>
-<p>状態: <%= @puzzle.status %></p>
-<p>完成日: <%= @puzzle.completed_at || "未完成" %></p>
+<h1 class="text-xl font-bold mb-4"><%= @puzzle.title %></h1>
 
-<div style="display: grid; grid-template-columns: repeat(4, 100px); gap: 4px;">
+<p class="mb-2">状態: <%= @puzzle.status %></p>
+<p class="mb-4">
+  完成日: <%= @puzzle.completed_at || "未完成" %><br>
+  進捗: <%= @puzzle.puzzle_pieces.where(filled: true).count %> / <%= @puzzle.puzzle_pieces.count %> ピース埋まり
+</p>
+
+<!-- ピース表示エリア -->
+<div class="grid grid-cols-4 gap-1">
   <% @puzzle.puzzle_pieces.each do |piece| %>
-    <div style="width:100px; height:100px; border:1px solid #ccc; text-align:center; line-height:100px;">
-      <% if piece.filled? %>
-        ✅
-      <% else %>
-        ❌
-      <% end %>
-    </div>
+    <% if piece.filled %>
+      <!-- 埋まっているピース -->
+      <div class="w-24 h-24 border border-gray-400 rounded-lg flex items-center justify-center text-lg font-bold bg-blue-500 text-white shadow-md">
+        <%= piece.position %>
+      </div>
+    <% else %>
+      <!-- まだ埋まってないピース -->
+      <div class="w-24 h-24 border border-gray-400 rounded-lg flex items-center justify-center text-lg font-bold bg-gray-300 text-gray-600 opacity-70">
+        <%= piece.position %>
+      </div>
+    <% end %>
   <% end %>
 </div>
+
