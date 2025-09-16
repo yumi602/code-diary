@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_15_122327) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_16_053301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,9 +86,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_15_122327) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "walk_records", force: :cascade do |t|
+    t.date "date"
+    t.text "note"
+    t.string "photo"
+    t.bigint "user_id", null: false
+    t.bigint "puzzle_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["puzzle_id"], name: "index_walk_records_on_puzzle_id"
+    t.index ["user_id"], name: "index_walk_records_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "diary_entries", "users"
   add_foreign_key "puzzle_pieces", "puzzles"
   add_foreign_key "puzzles", "users"
+  add_foreign_key "walk_records", "puzzles"
+  add_foreign_key "walk_records", "users"
 end

@@ -1,0 +1,11 @@
+<h2 class="text-xl font-bold mb-4 text-center">散歩記録の編集</h2>
+
+<div class="max-w-md mx-auto">
+  <%= render "form", walk_record: @walk_record %>
+
+  <div class="flex justify-end mt-4">
+    <%= link_to "削除", @walk_record,
+      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+      class: "btn btn-error" %>
+  </div>
+</div>

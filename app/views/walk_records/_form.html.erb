@@ -1,0 +1,23 @@
+<!-- app/views/walk_records/_form.html.erb -->
+<div class="max-w-xl mx-auto bg-white p-6 shadow-md rounded-lg">
+  <%= form_with(model: walk_record, local: true) do |form| %>
+    <div class="mb-4">
+      <%= form.label :date, "日付", class: "block font-semibold mb-1" %>
+      <%= form.date_field :date, class: "w-full rounded-lg border-gray-300" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :note, "メモ", class: "block font-semibold mb-1" %>
+      <%= form.text_area :note, rows: 3, class: "w-full rounded-lg border-gray-300" %>
+    </div>
+
+    <div class="flex justify-end">
+      <%= form.submit "登録する", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<!-- カード外に戻るボタン -->
+<div class="max-w-xl mx-auto mt-4 flex justify-start">
+  <%= link_to "一覧に戻る", walk_records_path, class: "btn" %>
+</div>

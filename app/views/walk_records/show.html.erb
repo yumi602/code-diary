@@ -1,0 +1,14 @@
+<h2 class="text-xl font-bold mb-4 text-center">散歩記録の詳細</h2>
+
+<div class="max-w-md mx-auto bg-white p-6 shadow-md rounded-lg">
+  <p class="mb-2"><span class="font-semibold">日付:</span> <%= @walk_record.date %></p>
+  <p class="mb-4"><span class="font-semibold">メモ:</span> <%= @walk_record.note %></p>
+</div>
+
+<div class="flex justify-between mt-6 max-w-md mx-auto">
+  <%= link_to "一覧に戻る", walk_records_path, class: "btn btn-outline" %>
+  <div class="flex space-x-2">
+    <%= link_to "編集", edit_walk_record_path(@walk_record), class: "btn btn-warning" %>
+    <%= link_to "削除", @walk_record, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-error" %>
+  </div>
+</div>
