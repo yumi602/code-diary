@@ -4,6 +4,8 @@ class Puzzle < ApplicationRecord
 
   enum status: { in_progress: "in_progress", completed: "completed" }
 
+  scope :in_progress, -> { where(status: :in_progress) }
+
   validates :title, presence: true
   validates :image, presence: true
 
