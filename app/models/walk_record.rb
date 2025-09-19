@@ -14,6 +14,6 @@ class WalkRecord < ApplicationRecord
     return unless target
 
     # 「1日1ピース」判定に使う日付は散歩記録のdate
-    target.fill_nest_piece!(date: date)
+    target.fill_next_piece!(date: date)
   end
 end
