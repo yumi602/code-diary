@@ -10,8 +10,9 @@ class WalkRecord < ApplicationRecord
 
   def fill_puzzle_piece
     # 紐付け先が明示されていればそれを、なければユーザーの進行中パズルを使う
-    target = puzzle || user.puzzle.in_progress.order(created_at: :desc).first
-    nil unless
+    target = puzzle || user.puzzles.in_progress.order(created_at: :desc).first
+    return unless target
+
     # 「1日1ピース」判定に使う日付は散歩記録のdate
     target.fill_nest_piece!(date: date)
   end

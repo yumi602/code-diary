@@ -5,4 +5,5 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable
 
   has_many :diary_entries, dependent: :destroy
+  has_many :puzzles
 end
