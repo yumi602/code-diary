@@ -4,10 +4,13 @@
   <%# タイトルと「新しい日記」ボタン。スマホでは縦積み、md以上で横並び %>
   <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
     <h1 class="text-xl font-bold">日記一覧</h1>
+  </div>
 
     <%# 幅いっぱいで押しやすいボタン。md以上は自然な幅に %>
-    <%= link_to "新しい日記を書く", new_diary_entry_path,
-      class: "btn btn-primary w-full md:w-auto" %>
+  <div class="flex justify-end space-x-2 mb-4">
+    <%= link_to "新しい日記を書く", new_diary_entry_path, class: "btn btn-primary" %>
+    <%= link_to "散歩を記録する", new_walk_record_path, class: "btn btn-secondary" %>
+    <%= link_to "パズルを見る", puzzles_path, class: "btn btn-accent" %>
   </div>
 
   <%# データが無いときの「空状態」カード %>
